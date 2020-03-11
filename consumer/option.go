@@ -115,6 +115,7 @@ func defaultPushConsumerOptions() consumerOptions {
 		MaxReconsumeTimes:          -1,
 		ConsumerModel:              Clustering,
 		AutoCommit:                 true,
+		ConsumeTimeout:				time.Duration(15 * time.Minute),
 	}
 	opts.ClientOptions.GroupName = "DEFAULT_CONSUMER"
 	return opts
@@ -261,5 +262,11 @@ func WithSuspendCurrentQueueTimeMillis(suspendT time.Duration) Option {
 func WithPullInterval(interval time.Duration) Option {
 	return func(options *consumerOptions) {
 		options.PullInterval = interval
+	}
+}
+
+func WithConsumeTimeout(consumeTimeout time.Duration) Option {
+	return func(options *consumerOptions) {
+		options.ConsumeTimeout = consumeTimeout
 	}
 }
